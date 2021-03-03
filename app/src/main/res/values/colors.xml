@@ -17,4 +17,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="cream">#605129</color>
+    <color name="lightCream">#fffdd0</color>
+    <color name="darkBrownColor">#654321</color>
+
 </resources>
