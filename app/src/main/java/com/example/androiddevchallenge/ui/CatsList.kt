@@ -1,22 +1,35 @@
+/*
+ * Copyright 2021 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.androiddevchallenge.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
@@ -38,16 +51,16 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import com.example.androiddevchallenge.R
-import com.example.composedemo.api.data.CatsModelItem
-import com.mvvmref.utils.Resource
-import com.mvvmref.utils.Status
+import com.example.androiddevchallenge.api.data.CatsModelItem
+import com.example.androiddevchallenge.api.data.Resource
+import com.example.androiddevchallenge.api.data.Status
 import dev.chrisbanes.accompanist.glide.GlideImage
-
 
 @ExperimentalAnimationApi
 @Composable
-fun CatsList(navController: NavHostController,list:Resource<List<CatsModelItem>>) {
-    Column(  modifier = Modifier.background(colorResource(id = R.color.lightCream))
+fun CatsList(navController: NavHostController, list: Resource<List<CatsModelItem>>) {
+    Column(
+        modifier = Modifier.background(colorResource(id = R.color.lightCream))
 
     ) {
         TopAppBar(
@@ -55,21 +68,18 @@ fun CatsList(navController: NavHostController,list:Resource<List<CatsModelItem>>
                 Text(text = "Kitty Cat", color = MaterialTheme.colors.onPrimary)
             },
             backgroundColor = colorResource(id = R.color.cream)
-            )
-        setupListData(navController,list)
+        )
+        setupListData(navController, list)
     }
 }
 
 @ExperimentalAnimationApi
 @Composable
-fun setupListData(navController: NavHostController,list:Resource<List<CatsModelItem>>) {
-    catsList(resp = list){
+fun setupListData(navController: NavHostController, list: Resource<List<CatsModelItem>>) {
+    catsList(resp = list) {
         navController.navigate("detail/${it.id}")
-
     }
-
 }
-
 
 @ExperimentalAnimationApi
 @Composable
@@ -85,14 +95,13 @@ fun catsList(resp: Resource<List<CatsModelItem>>, catListener: (CatsModelItem) -
                     items(items = it, itemContent = { cat -> CatItem(cat = cat, catListener) })
                 }
             }
-
         }
         Status.ERROR -> {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight()
-            ) {  Text(text = "No Data Found!!",modifier = Modifier.align(alignment = Alignment.Center))}
+            ) { Text(text = "No Data Found!!", modifier = Modifier.align(alignment = Alignment.Center)) }
         }
         Status.LOADING -> {
             Box(
@@ -100,16 +109,16 @@ fun catsList(resp: Resource<List<CatsModelItem>>, catListener: (CatsModelItem) -
                     .fillMaxWidth()
                     .fillMaxHeight()
             ) {
-                CircularProgressIndicator(modifier = Modifier.align(alignment = Alignment.Center),color = colorResource(
-                    id = R.color.cream
-                ))
-
+                CircularProgressIndicator(
+                    modifier = Modifier.align(alignment = Alignment.Center),
+                    color = colorResource(
+                        id = R.color.cream
+                    )
+                )
             }
         }
     }
-
 }
-
 
 @ExperimentalAnimationApi
 @Composable
@@ -127,11 +136,14 @@ fun CatItem(cat: CatsModelItem, catListener: (CatsModelItem) -> Unit) {
                     isVisible.value = !isVisible.value
                 },
             contentScale = ContentScale.Crop,
-           loading = {
+            loading = {
                 Box(Modifier.matchParentSize()) {
-                    CircularProgressIndicator(Modifier.align(Alignment.Center),color = colorResource(
-                        id = R.color.cream
-                    ))
+                    CircularProgressIndicator(
+                        Modifier.align(Alignment.Center),
+                        color = colorResource(
+                            id = R.color.cream
+                        )
+                    )
                 }
             }
         )
@@ -173,11 +185,9 @@ fun CatItem(cat: CatsModelItem, catListener: (CatsModelItem) -> Unit) {
                     textAlign = TextAlign.Center,
                     color = colorResource(id = R.color.white),
 
-                    )
+                )
             }
-
         }
         Spacer(modifier = Modifier.height(20.dp))
-
     }
 }

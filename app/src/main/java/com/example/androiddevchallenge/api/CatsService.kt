@@ -1,4 +1,19 @@
 /*
+ * Copyright 2021 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.example.androiddevchallenge.api/*
  * Copyright 2020 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,23 +29,17 @@
  * limitations under the License.
  */
 
-
-import com.example.composedemo.api.data.CatsModel
-import com.example.composedemo.api.data.CatsModelItem
+import com.example.androiddevchallenge.api.data.CatsModelItem
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
-/**
- * Used to connect to the Unsplash API to fetch photos
- */
 interface CatsService {
 
     @GET("breeds")
-    suspend fun getBreeds(
-    ): ArrayList<CatsModelItem>
+    suspend fun getBreeds(): ArrayList<CatsModelItem>
 
     companion object {
         private const val BASE_URL = "https://api.thecatapi.com/v1/"
@@ -38,7 +47,7 @@ interface CatsService {
         fun create(): CatsService {
 
             val client = OkHttpClient.Builder()
-                //.addInterceptor(logger)
+                // .addInterceptor(logger)
                 .addNetworkInterceptor(StethoInterceptor())
                 .build()
 
